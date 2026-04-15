@@ -40,7 +40,7 @@ export default function Footer({ onNavigate }) {
           <ul className="footer__links">
             <li><button onClick={() => onNavigate('home')} id="footer-link-home">Home</button></li>
             <li><button onClick={() => onNavigate('about')} id="footer-link-about">About Us</button></li>
-            <li><button onClick={() => onNavigate('home')} id="footer-link-media">Media</button></li>
+            <li><button onClick={() => onNavigate('media')} id="footer-link-media">Media</button></li>
             <li><button onClick={() => onNavigate('cookie')} id="footer-link-cookie">Cookie Policy</button></li>
             <li><button onClick={() => onNavigate('disclaimer')} id="footer-link-disclaimer">Disclaimer</button></li>
             <li><button onClick={() => onNavigate('privacy')} id="footer-link-privacy">Privacy Policy</button></li>
