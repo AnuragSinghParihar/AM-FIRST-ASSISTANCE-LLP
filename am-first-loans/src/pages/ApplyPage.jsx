@@ -19,7 +19,7 @@ export default function ApplyPage({ onNavigate }) {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await fetch('http://localhost:5005/api/apply', {
+      const res = await fetch('https://am-first-assistance-llp.onrender.com/api/apply', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(form),
