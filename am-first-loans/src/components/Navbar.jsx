@@ -35,9 +35,9 @@ export default function Navbar({ currentPage, onNavigate }) {
         </button>
 
         {/* Container for Links and Actions together */}
-        <div style={{ display: 'flex', position: 'absolute', left: 'calc(26vw + 180px)', alignItems: 'center', gap: '40px' }}>
+        <div className="navbar__desktop">
           {/* Desktop Links */}
-          <ul className="navbar__links" style={{ display: 'flex', gap: '32px' }}>
+          <ul className="navbar__links">
             {NAV_LINKS.map(link => (
               <li key={link.id}>
                 <button
@@ -52,8 +52,8 @@ export default function Navbar({ currentPage, onNavigate }) {
           </ul>
 
           {/* Right Actions */}
-          <div className="navbar__actions" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
-            <a href="tel:18001234567" className="navbar__phone" id="nav-phone">
+          <div className="navbar__actions">
+            <a href="tel:8818884843" className="navbar__phone" id="nav-phone">
               <span className="navbar__phone-icon">📞</span>
               +91-8818884843
             </a>
@@ -93,7 +93,7 @@ export default function Navbar({ currentPage, onNavigate }) {
           <button className="btn-primary navbar__mobile-cta" onClick={() => handleNav('apply')}>
             Apply Now
           </button>
-          <a href="tel:18001234567" className="navbar__mobile-phone">📞 1800-XXX-XXXX</a>
+          <a href="tel:8818884843" className="navbar__mobile-phone">📞 +91-8818884843</a>
         </div>
       )}
     </nav>

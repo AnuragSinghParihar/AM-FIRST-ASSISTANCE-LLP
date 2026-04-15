@@ -5,6 +5,7 @@ import dotenv from 'dotenv';
 import nodemailer from 'nodemailer';
 import cron from 'node-cron';
 import ExcelJS from 'exceljs';
+import Parser from 'rss-parser';
 
 dotenv.config();
 const { Pool } = pkg;
@@ -228,5 +229,117 @@ cron.schedule('0 14 * * *', () => {
   console.log('Running 2 PM email report...');
   sendDailyReport();
 }, { timezone: 'Asia/Kolkata' });
+
+// ── News RSS fetching ──────────────────────────────────────────
+const rssParser = new Parser({ timeout: 10000 });
+
+// Maps keywords in RSS titles to our categories/colors
+function categorizeArticle(title) {
+  const t = title.toLowerCase();
+  if (t.includes('rbi') || t.includes('reserve bank') || t.includes('monetary policy') || t.includes('repo rate')) {
+    return { tag: 'RBI Updates', tagLabel: 'RBI UPDATE', tagColor: 'red' };
+  }
+  if (t.includes('used car') || t.includes('second hand car') || t.includes('pre-owned') || t.includes('pre owned')) {
+    return { tag: 'Used Car Market', tagLabel: 'MARKET', tagColor: 'orange' };
+  }
+  if (t.includes('interest rate') || t.includes('loan rate') || t.includes('emi') || t.includes('auto loan rate') || t.includes('car loan rate')) {
+    return { tag: 'Loan Rates', tagLabel: 'RATE', tagColor: 'blue' };
+  }
+  if (t.includes('tip') || t.includes('guide') || t.includes('how to') || t.includes('checklist') || t.includes('advice')) {
+    return { tag: 'Tips & Guides', tagLabel: 'GUIDE', tagColor: 'green' };
+  }
+  if (t.includes('insurance') || t.includes('irdai') || t.includes('policy') || t.includes('regulation') || t.includes('norms')) {
+    return { tag: 'Press Releases', tagLabel: 'POLICY', tagColor: 'gold' };
+  }
+  // Default to Used Car Market for general auto finance news
+  return { tag: 'Used Car Market', tagLabel: 'AUTO', tagColor: 'orange' };
+}
+
+const RSS_FEEDS = [
+  'https://news.google.com/rss/search?q=used+car+loan+India&hl=en-IN&gl=IN&ceid=IN:en',
+  'https://news.google.com/rss/search?q=RBI+auto+loan+rate+India&hl=en-IN&gl=IN&ceid=IN:en',
+  'https://news.google.com/rss/search?q=car+refinance+India+NBFC&hl=en-IN&gl=IN&ceid=IN:en',
+];
+
+async function fetchAndCacheNews() {
+  console.log('[News] Fetching latest articles from RSS feeds...');
+  const articles = [];
+
+  for (const feedUrl of RSS_FEEDS) {
+    try {
+      const feed = await rssParser.parseURL(feedUrl);
+      for (const item of feed.items.slice(0, 6)) {
+        if (!item.title || !item.link) continue;
+        // Clean up Google News title (removes " - Source Name" suffix)
+        const title = item.title.replace(/\s+-\s+[^-]+$/, '').trim();
+        const source = item.creator || (item.title.match(/\s+-\s+(.+)$/) || [])[1] || 'News';
+        const pubDate = item.pubDate ? new Date(item.pubDate).toLocaleDateString('en-IN', { month: 'long', year: 'numeric' }) : '';
+        const { tag, tagLabel, tagColor } = categorizeArticle(title);
+        articles.push({ tag, tagLabel, tagColor, title, source: `${source}${pubDate ? ', ' + pubDate : ''}`, link: item.link });
+      }
+    } catch (err) {
+      console.warn(`[News] Failed to fetch feed ${feedUrl}:`, err.message);
+    }
+  }
+
+  if (articles.length === 0) {
+    console.warn('[News] No articles fetched — keeping existing cache.');
+    return;
+  }
+
+  // Deduplicate by title
+  const seen = new Set();
+  const unique = articles.filter(a => {
+    if (seen.has(a.title)) return false;
+    seen.add(a.title);
+    return true;
+  }).slice(0, 20);
+
+  // Replace cache
+  try {
+    await pool.query('DELETE FROM news_cache');
+    for (const a of unique) {
+      await pool.query(
+        `INSERT INTO news_cache (tag, tag_label, tag_color, title, source, link) VALUES ($1,$2,$3,$4,$5,$6)`,
+        [a.tag, a.tagLabel, a.tagColor, a.title, a.source, a.link]
+      );
+    }
+    console.log(`[News] Cached ${unique.length} articles.`);
+  } catch (err) {
+    console.error('[News] DB write error:', err.message);
+  }
+}
+
+// ── GET /api/news — serve cached articles ─────────────────────
+app.get('/api/news', async (req, res) => {
+  try {
+    const result = await pool.query('SELECT * FROM news_cache ORDER BY fetched_at DESC, id ASC');
+    res.json({ success: true, articles: result.rows });
+  } catch (err) {
+    res.status(500).json({ success: false, error: err.message });
+  }
+});
+
+// ── GET /api/refresh-news — manual refresh trigger ────────────
+app.get('/api/refresh-news', async (req, res) => {
+  await fetchAndCacheNews();
+  res.json({ success: true, message: 'News refreshed!' });
+});
+
+// ── Schedule: refresh news every 7 days (Sunday 3 AM IST) ────
+cron.schedule('0 3 * * 0', () => {
+  console.log('[News] Running weekly news refresh...');
+  fetchAndCacheNews();
+}, { timezone: 'Asia/Kolkata' });
+
+// Initial fetch on server start (if cache is empty)
+pool.query('SELECT COUNT(*) FROM news_cache').then(r => {
+  if (parseInt(r.rows[0].count) === 0) {
+    console.log('[News] Cache empty — fetching initial articles...');
+    fetchAndCacheNews();
+  }
+}).catch(() => {
+  // Table may not exist yet — skip initial fetch
+});
 
 app.listen(5005, () => console.log('Server running on port 5005'));
