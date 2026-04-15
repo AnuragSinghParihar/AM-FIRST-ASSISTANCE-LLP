@@ -1,0 +1,238 @@
+/* Used Car Loans Page */
+.ucl-page { width: 100%; }
+
+.ucl-hero {
+  background: var(--navy-800);
+  padding: 120px 0 64px;
+  border-bottom: 3px solid var(--gold-500);
+}
+
+.ucl-hero__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 48px;
+}
+
+.ucl-hero__content { flex: 1; }
+
+.ucl-hero__title {
+  font-size: clamp(36px, 5vw, 60px);
+  font-weight: 900;
+  color: var(--white);
+  margin: 12px 0 8px;
+}
+
+.ucl-hero__sub {
+  color: rgba(255,255,255,0.7);
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.ucl-hero__features {
+  color: rgba(255,255,255,0.4);
+  font-size: 14px;
+  margin-bottom: 28px;
+}
+
+.ucl-hero__actions {
+  display: flex;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.ucl-hero__stats {
+  display: flex;
+  gap: 36px;
+  flex-shrink: 0;
+}
+
+.ucl-stat {
+  text-align: center;
+}
+
+.ucl-stat__value {
+  display: block;
+  font-family: var(--font-heading);
+  font-size: clamp(22px, 3vw, 30px);
+  font-weight: 800;
+  color: var(--gold-500);
+  margin-bottom: 4px;
+}
+
+.ucl-stat__label {
+  font-size: 12px;
+  color: rgba(255,255,255,0.4);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+/* Features */
+.ucl-features {
+  padding: var(--section-padding);
+  background: var(--off-white);
+}
+
+.ucl-features__title {
+  font-size: clamp(24px, 3vw, 34px);
+  font-family: var(--font-serif);
+  font-weight: 800;
+  color: var(--navy-900);
+  text-transform: uppercase;
+  margin-bottom: 36px;
+}
+
+.ucl-features__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+.ucl-feature-card {
+  background: var(--white);
+  border-radius: var(--radius-sm);
+  padding: 24px 28px;
+  display: flex;
+  gap: 16px;
+  align-items: flex-start;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: var(--transition-slow);
+}
+
+.ucl-feature-card:hover {
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.08);
+  transform: translateY(-2px);
+}
+
+.ucl-feature-card__num {
+  width: 32px;
+  height: 32px;
+  background: var(--gold-500);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  margin-top: 4px;
+}
+
+.ucl-feature-card__num span {
+  font-family: var(--font-body);
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--navy-900);
+}
+
+.ucl-feature-card__body h3 {
+  font-family: var(--font-body);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--navy-900);
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.ucl-feature-card__icon { 
+  font-size: 18px; 
+  display: flex;
+  align-items: center;
+  color: var(--navy-800);
+}
+
+.ucl-feature-card__body p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* Docs section */
+.ucl-docs {
+  padding: var(--section-padding);
+  background: var(--white);
+}
+
+.ucl-docs__inner {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+}
+
+.ucl-docs__card {
+  background: var(--navy-800);
+  border-radius: var(--radius-md);
+  padding: 36px;
+  border: 1px solid rgba(201,168,72,0.1);
+}
+
+.ucl-docs__card h2 {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 24px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid rgba(201,168,72,0.15);
+}
+
+.ucl-docs__list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.ucl-docs__list li {
+  color: rgba(255,255,255,0.75);
+  font-size: 14.5px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+
+/* CTA */
+.ucl-cta {
+  padding: 80px 0;
+  background: var(--gold-500);
+  text-align: center;
+}
+
+.ucl-cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+}
+
+.ucl-cta h2 {
+  font-size: clamp(28px, 4vw, 44px);
+  font-weight: 900;
+  color: var(--navy-800);
+}
+
+.ucl-cta p {
+  color: rgba(10,22,40,0.65);
+  font-size: 16px;
+  margin-bottom: 8px;
+}
+
+.ucl-cta__btn {
+  background: var(--navy-800);
+  color: var(--gold-500);
+  border-color: var(--navy-800);
+  font-size: 15px;
+  padding: 16px 40px;
+}
+
+.ucl-cta__btn:hover {
+  background: var(--navy-700);
+  border-color: var(--navy-700);
+}
+
+@media (max-width: 860px) {
+  .ucl-hero__inner { flex-direction: column; padding: 100px 16px 48px; }
+  .ucl-features__grid { grid-template-columns: 1fr; }
+  .ucl-docs__inner { grid-template-columns: 1fr; }
+}

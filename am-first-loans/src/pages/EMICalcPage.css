@@ -1,0 +1,84 @@
+.emi-page { width: 100%; }
+
+.emi-page__intro {
+  background: var(--navy-900);
+  padding: 100px 0 48px;
+  text-align: center;
+}
+
+.emi-page__title {
+  font-size: clamp(36px, 5vw, 56px);
+  font-weight: 900;
+  color: var(--white);
+  margin: 12px 0 12px;
+}
+
+.emi-page__sub {
+  color: rgba(255,255,255,0.55);
+  font-size: 16px;
+  max-width: 520px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+/* Tips */
+.emi-tips {
+  padding: 40px 0 100px;
+  background: var(--off-white);
+}
+
+.emi-tips__title {
+  font-size: clamp(28px, 4vw, 36px);
+  font-family: var(--font-serif);
+  font-weight: 800;
+  color: var(--navy-900);
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.emi-tips__grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 20px;
+}
+
+.emi-tip-card {
+  background: var(--white);
+  border-radius: var(--radius-md);
+  padding: 28px 22px;
+  border: 1.5px solid rgba(0,0,0,0.06);
+  text-align: center;
+  transition: var(--transition-slow);
+}
+
+.emi-tip-card:hover {
+  border-color: rgba(201,168,72,0.2);
+  transform: translateY(-4px);
+  box-shadow: 0 8px 28px rgba(0,0,0,0.08);
+}
+
+.emi-tip-card__icon {
+  display: block;
+  font-size: 32px;
+  margin-bottom: 14px;
+}
+
+.emi-tip-card h3 {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.emi-tip-card p {
+  font-size: 13.5px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+@media (max-width: 900px) {
+  .emi-tips__grid { grid-template-columns: repeat(2, 1fr); }
+}
+@media (max-width: 540px) {
+  .emi-tips__grid { grid-template-columns: 1fr; }
+}

@@ -1,0 +1,120 @@
+.how-it-works {
+  padding: var(--section-padding);
+  background: var(--navy-900);
+}
+
+.how-it-works__header {
+  text-align: center;
+  margin-bottom: 56px;
+}
+
+.how-it-works__title {
+  font-family: var(--font-heading);
+  font-size: clamp(26px, 3.5vw, 36px);
+  color: var(--gold-400);
+  font-weight: 800;
+  margin-bottom: 32px;
+  text-transform: uppercase;
+}
+
+.how-it-works__sub {
+  color: var(--text-muted);
+  font-size: 15px;
+  max-width: 440px;
+  margin: 0 auto;
+}
+
+.how-it-works__steps {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0;
+  position: relative;
+  margin-bottom: 48px;
+}
+
+.step-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: 0 24px;
+  position: relative;
+}
+
+/* Animated arrow between steps */
+.step-arrow {
+  position: absolute;
+  top: 30px;
+  right: 0;
+  transform: translate(50%, -50%);
+  color: var(--gold-500);
+  animation: arrowPulse 2s infinite ease-in-out;
+  z-index: 2;
+}
+
+@keyframes arrowPulse {
+  0% { transform: translate(30%, -50%); opacity: 0.2; }
+  50% { transform: translate(70%, -50%); opacity: 1; }
+  100% { transform: translate(30%, -50%); opacity: 0.2; }
+}
+
+.step-card__circle {
+  width: 60px;
+  height: 60px;
+  background: var(--white);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 24px;
+}
+
+.step-card__num {
+  font-family: var(--font-base);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--navy-800);
+}
+
+.step-card__icon {
+  font-size: 28px;
+  margin-bottom: 12px;
+  animation: float 3s ease-in-out infinite;
+}
+
+.step-card:nth-child(2) .step-card__icon { animation-delay: 0.5s; }
+.step-card:nth-child(3) .step-card__icon { animation-delay: 1s; }
+.step-card:nth-child(4) .step-card__icon { animation-delay: 1.5s; }
+
+.step-card__title {
+  font-size: 16px;
+  font-weight: 800;
+  color: var(--white);
+  margin-bottom: 8px;
+}
+
+.step-card__desc {
+  font-size: 13.5px;
+  color: rgba(255, 255, 255, 0.7);
+  line-height: 1.5;
+}
+
+.how-it-works__cta {
+  display: flex;
+  justify-content: center;
+}
+
+@media (max-width: 768px) {
+  .how-it-works__steps {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 36px;
+  }
+  .step-arrow { display: none; }
+}
+
+@media (max-width: 480px) {
+  .how-it-works__steps {
+    grid-template-columns: 1fr;
+    gap: 32px;
+  }
+}

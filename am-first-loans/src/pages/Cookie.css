@@ -1,0 +1,50 @@
+.cookie {
+  background: var(--bg-light, #F9FAFB);
+  padding: 120px 0 100px;
+  min-height: 100vh;
+}
+
+.cookie-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 40px;
+}
+
+.cookie-container h1 {
+  font-family: var(--font-heading, serif);
+  font-size: clamp(28px, 4vw, 40px);
+  font-weight: 900;
+  color: var(--navy-800, #0A1F44);
+  text-align: center;
+  letter-spacing: 2px;
+  margin-bottom: 40px;
+  padding-bottom: 20px;
+  border-bottom: 3px solid var(--gold-500, #D4AF37);
+}
+
+.cookie-container h2 {
+  font-family: var(--font-heading, serif);
+  font-size: 20px;
+  font-weight: 800;
+  color: var(--navy-800, #0A1F44);
+  margin: 36px 0 12px;
+  padding-left: 12px;
+  border-left: 4px solid var(--gold-500, #D4AF37);
+}
+
+.cookie-container p {
+  font-size: 15px;
+  color: var(--text-color, #4A5568);
+  line-height: 1.85;
+  margin-bottom: 16px;
+}
+
+.cookie-container a {
+  color: var(--gold-500, #D4AF37);
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.cookie-container a:hover {
+  text-decoration: underline;
+}

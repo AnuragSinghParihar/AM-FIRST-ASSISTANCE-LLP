@@ -1,0 +1,118 @@
+.loan-products {
+  padding: var(--section-padding);
+  background: var(--off-white);
+}
+
+.loan-products__header {
+  text-align: center;
+  margin-bottom: 48px;
+}
+
+.loan-products__title {
+  font-size: clamp(28px, 3.5vw, 40px);
+  color: var(--text-dark);
+  margin-bottom: 12px;
+  font-weight: 800;
+}
+
+.loan-products__sub {
+  color: var(--text-muted);
+  font-size: 16px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.loan-products__grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 28px;
+  max-width: 860px;
+  margin: 0 auto;
+}
+
+.product-card {
+  background: var(--navy-800);
+  border-radius: var(--radius-lg);
+  padding: 36px 32px;
+  position: relative;
+  border: 1.5px solid rgba(201,168,72,0.1);
+  transition: var(--transition-slow);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.product-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--gold-600), var(--gold-400));
+  opacity: 0;
+  transition: var(--transition);
+}
+
+.product-card:hover {
+  border-color: rgba(201,168,72,0.35);
+  transform: translateY(-6px);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3), 0 0 0 1px rgba(201,168,72,0.2);
+}
+
+.product-card:hover::before { opacity: 1; }
+
+
+
+.product-card__icon-wrap {
+  width: 56px;
+  height: 56px;
+  background: rgba(201,168,72,0.12);
+  border-radius: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 18px;
+  border: 1px solid rgba(201,168,72,0.2);
+}
+
+.product-card__icon svg { 
+  width: 26px; 
+  height: 26px;
+  color: var(--gold-500); 
+}
+
+.product-card__title {
+  font-size: 22px;
+  font-weight: 700;
+  color: var(--white);
+  margin-bottom: 4px;
+}
+
+.product-card__features {
+  list-style: none;
+  padding: 0;
+  margin: 16px 0 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.product-card__features li {
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 15px;
+  line-height: 1.4;
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+}
+
+.product-card__cta {
+  width: 100%;
+  justify-content: center;
+}
+
+@media (max-width: 640px) {
+  .loan-products__grid {
+    grid-template-columns: 1fr;
+  }
+}

@@ -1,0 +1,28 @@
+# Dependencies
+node_modules/
+.venv/
+
+# Environment variables (never commit credentials)
+.env
+.env.local
+.env.*
+
+# Build output
+dist/
+dist-ssr/
+build/
+
+# Logs
+*.log
+logs/
+npm-debug.log*
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.suo
+*.sw?
